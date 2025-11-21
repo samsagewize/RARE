@@ -26,21 +26,27 @@
 
     .game {
       margin-top:40px; position:relative; width:380px; height:380px;
-      border:5px solid #ffd700; border-radius:50%; overflow:hidden;
+      border:6px solid #ffd700; border-radius:50%; overflow:hidden;
       background:radial-gradient(circle,#004e92,#000428);
-      box-shadow:0 0 120px rgba(255,215,0,0.7);
+      box-shadow:0 0 140px rgba(255,215,0,0.8);
     }
     #diamond {
       position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      font-size:180px; cursor:grab; user-select:none;
-      text-shadow:0 0 40px #ffd700;
-      transition:all 0.05s;
+      width:260px; height:260px;
+      cursor:grab; user-select:none;
+      transition:all 0.1s;
+      border-radius:50%;
+      box-shadow:0 0 80px rgba(255,215,0,0.9);
     }
-    #diamond:active { transform:translate(-50%,-50%) scale(1.15); cursor:grabbing; }
-    #timer { font-family:'Orbitron'; font-size:4rem; margin:30px; color:#ffd700; }
+    #diamond:active {
+      transform:translate(-50%,-50%) scale(1.18);
+      cursor:grabbing;
+      box-shadow:0 0 140px #ffd700;
+    }
+    #timer { font-family:'Orbitron'; font-size:4.5rem; margin:30px; color:#ffd700; }
     #message { font-family:'Orbitron'; font-size:2.5rem; margin:20px;
       background:linear-gradient(#ffd700,#fff); -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent; height:80px; }
+      -webkit-text-fill-color:transparent; height:100px; }
 
     @keyframes pulse { 0%,100%{box-shadow:0 0 100px #ffd700;} 50%{box-shadow:0 0 180px #ffd700;} }
   </style>
@@ -54,21 +60,22 @@
   </div>
 
   <div style="max-width:700px; background:rgba(255,215,0,0.1); padding:20px; border-radius:20px; border:2px solid #ffd700; margin:20px;">
-    <b>HOW TO WIN $RARE :</b><br>
-    Hold down your mouse (or finger) on the diamond as long as you can<br><br>
-
-    Screenshot your time → post with #RAREHold → get paid 
+    <b>HOW TO WIN $RARE (brain-dead easy):</b><br>
+    Hold down your finger/mouse on the diamond as long as you can<br><br>
+    Longer hold = bigger airdrop<br>
+    Screenshot your time → post with #RAREHold → get paid daily
   </div>
 
   <div class="game">
-    <div id="diamond" 
+    <img src="Screenshot 2025-11-20 235126.png" id="diamond"
          onmousedown="startHold(event)" ontouchstart="startHold(event)"
          onmouseup="stopHold()" ontouchend="stopHold()"
-         onmouseleave="stopHold()">Diamond</div>
+         onmouseleave="stopHold()"
+         alt="Hold the Diamond">
   </div>
 
   <div id="timer">0.0s</div>
-  <div id="message">Hold the diamond!</div>
+  <div id="message">HOLD THE DIAMOND!</div>
 
   <script>
     let holdTime = 0;
@@ -82,31 +89,32 @@
       if (timerInterval) clearInterval(timerInterval);
       holdTime = 0;
       timerEl.textContent = '0.0s';
-      msgEl.textContent = 'HOLDING... Diamond';
-      diamond.style.filter = 'brightness(1.5)';
+      msgEl.textContent = 'HOLDING...';
+      diamond.style.transform = 'translate(-50%,-50%) scale(1.18)';
+      diamond.style.boxShadow = '0 0 160px #ffd700';
 
       timerInterval = setInterval(() => {
         holdTime += 0.1;
         timerEl.textContent = holdTime.toFixed(1) + 's';
 
-        if (holdTime >= 60) msgEl.textContent = 'LEGEND! 0.5% INCOMING';
-        else if (holdTime >= 30) msgEl.textContent = 'DIAMOND HANDS! Medium bag';
+        if (holdTime >= 60) msgEl.textContent = 'LEGEND STATUS!';
+        else if (holdTime >= 30) msgEl.textContent = 'DIAMOND HANDS!';
         else if (holdTime >= 10) msgEl.textContent = 'Keep going anon!';
       }, 100);
     }
 
     function stopHold() {
       if (timerInterval) clearInterval(timerInterval);
-      diamond.style.filter = '';
+      diamond.style.transform = 'translate(-50%,-50%) scale(1)';
+      diamond.style.boxShadow = '0 0 80px rgba(255,215,0,0.9)';
+
       if (holdTime >= 10) {
-        msgEl.textContent = `Nice! ${holdTime.toFixed(1)}s → Screenshot & post #RAREHold`;
+        msgEl.textContent = `W ${holdTime.toFixed(1)}s → Screenshot + #RAREHold = BAG`;
       } else {
-        msgEl.textContent = 'Too early bro... try again';
+        msgEl.textContent = 'Paper hands detected... try again';
       }
     }
   </script>
 
 </body>
 </html>
-
-
