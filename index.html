@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>$RARE - The Rarest Asset on Solana</title>
-  <meta name="description" content="$RARE - Truly scarce. Truly valuable." />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap');
 
@@ -20,119 +19,113 @@
       align-items: center;
       text-align: center;
       overflow: hidden;
-      position: relative;
-    }
-
-    /* Eye frame overlay */
-    .eye-frame {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 1000;
-      background-image: 
-        radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.3) 1px, transparent 1px),
-        radial-gradient(circle at 80% 80%, rgba(0, 255, 0, 0.3) 1px, transparent 1px),
-        radial-gradient(circle at 50% 10%, rgba(0, 0, 255, 0.3) 1px, transparent 1px),
-        radial-gradient(circle at 10% 80%, rgba(255, 255, 0, 0.3) 1px, transparent 1px),
-        radial-gradient(circle at 90% 50%, rgba(255, 0, 255, 0.3) 1px, transparent 1px),
-        radial-gradient(circle at 30% 50%, rgba(0, 255, 255, 0.3) 1px, transparent 1px);
-      background-size: 100px 100px, 150px 150px, 200px 200px, 120px 120px, 180px 180px, 90px 90px;
-      animation: scan 3s linear infinite;
-      opacity: 0.7;
-    }
-
-    @keyframes scan {
-      0% { transform: translateX(-100%) translateY(-100%); }
-      100% { transform: translateX(100%) translateY(100%); }
+      background: radial-gradient(circle at center, #111 0%, #000 70%);
     }
 
     .logo {
-      width: 220px;
-      height: 220px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #ffd700;
-      box-shadow: 0 0 60px rgba(255, 215, 0, 0.6);
-      animation: pulse 4s infinite;
-      z-index: 1;
-    }
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 5rem;
-      margin: 2rem 0 0.5rem;
-      background: linear-gradient(90deg, #ffd700, #ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      z-index: 1;
-    }
-    p {
-      font-size: 1.5rem;
-      max-width: 600px;
-      opacity: 0.9;
-      line-height: 1.6;
-      z-index: 1;
-    }
-    .ca {
-      margin-top: 3rem;
-      padding: 1rem 2rem;
-      background: rgba(255, 215, 0, 0.15);
-      border: 1px solid #ffd700;
-      border-radius: 50px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-      z-index: 1;
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.6); }
-      50% { box-shadow: 0 0 90px rgba(255, 215, 0, 0.9); }
-      100% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.6); }
-    }
-    footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.9rem;
-      opacity: 0.6;
-      z-index: 1;
+      border: 5px solid #ffd700;
+      box-shadow: 0 0 80px rgba(255, 215, 0, 0.8);
+      animation: pulse 3s infinite;
+      margin-bottom: 1rem;
     }
 
-    /* Pump.fun coin page embed */
-    .pump-embed {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      height: 90%;
-      border: none;
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4.5rem;
+      background: linear-gradient(90deg, #ffd700, #fff, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0.5rem 0;
+    }
+
+    .ca {
+      margin: 2rem 0;
+      padding: 0.8rem 2rem;
+      background: rgba(255, 215, 0, 0.2);
+      border: 2px solid #ffd700;
+      border-radius: 50px;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+    }
+
+    /* Container that holds the pump.fun iframe + eye-frame effect */
+    .pump-container {
+      position: relative;
+      width: 92vw;
+      max-width: 1100px;
+      height: 75vh;
+      max-height: 800px;
+      border: 3px solid #ffd700;
       border-radius: 20px;
-      box-shadow: 0 0 100px rgba(255, 215, 0, 0.5);
-      z-index: 999;
+      overflow: hidden;
+      box-shadow: 0 0 120px rgba(255, 215, 0, 0.6);
+      margin-top: 2rem;
+    }
+
+    /* Eye-frame effect INSIDE the container only */
+    .eye-frame {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      background-image: 
+        radial-gradient(circle, #ff00ff 1px, transparent 2px),
+        radial-gradient(circle, #00ffff 1px, transparent 2px),
+        radial-gradient(circle, #ffff00 1px, transparent 2px),
+        radial-gradient(circle, #00ff00 1px, transparent 2px);
+      background-size: 80px 80px, 120px 120px, 100px 100px, 140px 140px;
+      background-position: 0 0, 40px 40px, 80px 20px, 20px 80px;
+      opacity: 0.6;
+      animation: eyeScan 6s linear infinite;
+    }
+
+    @keyframes eyeScan {
+      0%   { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .pump-embed {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 18px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 80px rgba(255, 215, 0, 0.8); }
+      50% { box-shadow: 0 0 140px rgba(255, 215, 0, 1); }
+    }
+
+    footer {
+      margin-top: 2rem;
+      opacity: 0.7;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="eye-frame"></div>
-
   <img src="Screenshot 2025-11-20 235126.png" alt="$RARE Diamond" class="logo">
-  
   <h1>$RARE</h1>
-  <p>The rarest value asset on Solana.<br>1 billion total supply • Fair launch • Community owned</p>
+  <div class="ca">CA: 5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump</div>
 
-  <div class="ca">
-    CA: (5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump)
+  <!-- Eye-frame container -->
+  <div class="pump-container">
+    <div class="eye-frame"></div>
+    <iframe src="https://pump.fun/coin/5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump" 
+            class="pump-embed" 
+            title="$RARE on pump.fun">
+    </iframe>
   </div>
 
-  <footer>
-    © 2025 $RARE – Diamonds are forever.
-  </footer>
-
-  <!-- Embedded Pump.fun coin page -->
-  <iframe src="https://pump.fun/coin/5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump" class="pump-embed" title="Pump.fun $RARE Coin Page"></iframe>
+  <footer>© 2025 $RARE – Only real ones shine forever</footer>
 
 </body>
 </html>
