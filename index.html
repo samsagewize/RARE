@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>$RARE - Flip the Diamond</title>
+  <title>$RARE Rain – Catch Diamonds, Win Tokens</title>
+  <meta name="description" content="$RARE Rain – Catch falling diamonds and win real $RARE airdrops!" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap');
 
@@ -15,227 +16,210 @@
       font-family: 'Inter', sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
-      overflow: hidden;
+      overflow-x: hidden;
+      padding: 20px 0;
     }
 
     .logo {
-      width: 180px;
-      height: 180px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid #ffd700;
-      box-shadow: 0 0 80px rgba(255, 215, 0, 0.8);
-      animation: pulse 3s infinite;
-      margin-bottom: 1rem;
+      border: 6px solid #ffd700;
+      box-shadow: 0 0 100px rgba(255,215,0,0.8);
+      animation: pulse 4s infinite;
+      margin: 20px 0;
     }
 
     h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 4.5rem;
-      background: linear-gradient(90deg, #ffd700, #fff, #ffd700);
+      font-size: 4rem;
+      background: linear-gradient(90deg, #ffd700, #ffffff, #ffd700);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin: 0.5rem 0;
     }
 
     .ca {
-      margin: 2rem 0;
-      padding: 0.8rem 2rem;
-      background: rgba(255, 215, 0, 0.2);
+      margin: 20px 0;
+      padding: 12px 30px;
+      background: rgba(255,215,0,0.2);
       border: 2px solid #ffd700;
       border-radius: 50px;
       font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
       letter-spacing: 2px;
-      font-size: 1.2rem;
       cursor: pointer;
-      transition: all 0.3s;
     }
 
-    .ca:hover {
-      box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
-      transform: scale(1.05);
+    .ca:hover { box-shadow: 0 0 40px #ffd700; }
+
+    /* Rules box */
+    .rules {
+      max-width: 800px;
+      background: rgba(255,215,0,0.1);
+      border: 2px solid #ffd700;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px auto;
+      text-align: left;
+      font-size: 1.1rem;
+      line-height: 1.8;
     }
 
-    /* Coin Flip Game Container */
-    .game-container {
+    .rules h2 {
+      text-align: center;
+      font-family: 'Orbitron';
+beat      color: #ffd700;
+    }
+
+    /* Rain game */
+    .rain-container {
       position: relative;
-      width: 400px;
-      height: 500px;
-      margin-top: 2rem;
+      width: 420px;
+      height: 620px;
+      border: 6px solid #ffd700;
+      border-radius: 25px;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #000428, #004e92);
+      box-shadow: 0 0 120px rgba(255,215,0,0.6);
+      margin: 30px 0;
     }
 
-    .coin {
+    #timer, #score {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 200px;
-      height: 200px;
-      margin: -100px 0 0 -100px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, #ffd700, #ffed4a);
-      box-shadow: 
-        inset 0 0 50px rgba(255,255,255,0.3),
-        0 0 50px rgba(255,215,0,0.8),
-        inset 20px 0 40px rgba(0,0,0,0.2);
-      transition: transform 0.1s;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .coin-heads::after {
-      content: '💎';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 80px;
-      text-shadow: 0 0 20px #fff;
-    }
-
-    .coin-tails::after {
-      content: '🖤';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 80px;
+      top: 15px;
+      font-family: 'Orbitron';
+      font-size: 2rem;
+      z-index: 10;
+      color: #ffd700;
       text-shadow: 0 0 20px #000;
     }
+    #timer { right: 20px; }
+    #score { left: 20px; }
 
-    .coin.flipping {
-      animation: flip 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-    }
+    #game-area { width: 100%; height: 100%; position: relative; cursor: crosshair; }
+    .diamond { position: absolute; font-size: 44px; pointer-events: none; animation: fall linear forwards; user-select: none; }
+    @keyframes fall { to { transform: translateY(700px) rotate(720deg); } }
 
-    @keyframes flip {
-      0% { transform: rotateY(0deg) rotateX(0deg); }
-      25% { transform: rotateY(90deg) rotateX(180deg); }
-      50% { transform: rotateY(180deg) rotateX(360deg); }
-      75% { transform: rotateY(270deg) rotateX(540deg); }
-      100% { transform: rotateY(360deg) rotateX(720deg); }
-    }
-
-    .flip-btn {
+    #start-rain {
       position: absolute;
-      bottom: -80px;
+      bottom: -70px;
       left: 50%;
       transform: translateX(-50%);
-      padding: 1rem 3rem;
+      padding: 18px 50px;
       background: linear-gradient(90deg, #ffd700, #ffed4a);
       border: none;
       border-radius: 50px;
       color: #000;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      letter-spacing: 2px;
       cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 10px 30px rgba(255,215,0,0.5);
+      box-shadow: 0 15px 40px rgba(255,215,0,0.6);
     }
 
-    .flip-btn:hover {
-      transform: translateX(-50%) translateY(-5px);
-      box-shadow: 0 20px 50px rgba(255,215,0,0.8);
-    }
-
-    .flip-btn:active {
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .result {
+    #win-message {
       position: absolute;
-      top: -60px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, -50%);
       font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      margin: 0;
+      font-size: 3.5rem;
+      text-align: center;
+      background: linear-gradient(#ffd700, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       opacity: 0;
-      transition: opacity 0.5s;
-    }
-
-    .result.show {
-      opacity: 1;
-    }
-
-    .streak {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.2rem;
-      opacity: 0.8;
+      z-index: 20;
+      text-shadow: 0 0 30px #000;
     }
 
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 80px rgba(255, 215, 0, 0.8); }
-      50% { box-shadow: 0 0 140px rgba(255, 215, 0, 1); }
+      0%,100% { box-shadow: 0 0 100px rgba(255,215,0,0.8); }
+      50% { box-shadow: 0 0 160px rgba(255,215,0,1); }
     }
 
-    footer {
-      margin-top: 2rem;
-      opacity: 0.7;
-      font-size: 0.9rem;
-    }
+    footer { margin-top: 40px; opacity: 0.7; }
   </style>
 </head>
 <body>
 
-  <img src="Screenshot 2025-11-20 235126.png" alt="$RARE Diamond" class="logo">
-  <h1>$RARE</h1>
-  <div class="ca" onclick="window.open('https://pump.fun/5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump')">CA: 5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump</div>
-
-  <!-- Coin Flip Game -->
-  <div class="game-container">
-    <div id="coin" class="coin coin-heads" onclick="flipCoin()"></div>
-    <button class="flip-btn" onclick="flipCoin()">FLIP $RARE 💎</button>
-    <h2 id="result" class="result"></h2>
-    <div id="streak" class="streak">Streak: 0 🔥</div>
+  <img src="rare.png" alt="$RARE Diamond" class="logo">
+  <h1>$RARE RAIN</h1>
+  <div class="ca" onclick="window.open('https://pump.fun/5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump')">
+    CA: 5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump
   </div>
 
-  <footer>© 2025 $RARE – Flip or get rekt</footer>
+  <!-- RULES -->
+  <div class="rules">
+    <h2>HOW TO WIN REAL $RARE</h2>
+    <p>1. Click <strong>START $RARE RAIN</strong><br>
+       2. You have 30 seconds<br>
+       3. Click as many falling 💎 as you can<br><br>
+       <strong>Rewards (paid weekly from the Prize Wallet):</strong><br>
+       • 50+ diamonds → <strong>0.5% of total supply</strong> airdropped<br>
+       • 30–49 diamonds → <strong>0.1% of supply</strong><br>
+       • 15–29 diamonds → <strong>0.02% of supply</strong><br>
+       • Top 3 scores every week get extra bonus<br><br>
+       Screenshot your score → post on Twitter/TG with #RARERain → we airdrop every Sunday</p>
+  </div>
+
+  <!-- RARE RAIN GAME -->
+  <div class="rain-container">
+    <div id="timer">30</div>
+    <div id="score">Diamonds: 0</div>
+    <div id="game-area"></div>
+    <button id="start-rain">START $RARE RAIN</button>
+    <div id="win-message"></div>
+  </div>
+
+  <footer>© 2025 $RARE – The only coin that literally rains money</footer>
 
   <script>
-    let streak = 0;
-    let currentSide = 'heads';
+    let score = 0, timeLeft = 0, gameActive = false;
 
-    function flipCoin() {
-      const coin = document.getElementById('coin');
-      const result = document.getElementById('result');
-      const streakEl = document.getElementById('streak');
+    document.getElementById('start-rain').onclick = () => {
+      if (gameActive) return;
+      score = 0; timeLeft = 30; gameActive = true;
+      document.getElementById('score').textContent = 'Diamonds: 0';
+      document.getElementById('timer').textContent = '30';
+      document.getElementById('win-message').style.opacity = 0;
+      document.getElementById('game-area').innerHTML = '';
 
-      // Flip animation
-      coin.classList.add('flipping');
-      coin.classList.remove('coin-heads', 'coin-tails');
+      const timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').textContent = timeLeft;
+        if (timeLeft <= 0) { clearInterval(timer); gameActive = false; endGame(); }
+      }, 1000);
 
-      // Random result after animation
-      setTimeout(() => {
-        coin.classList.remove('flipping');
-        const isHeads = Math.random() < 0.5;
-        currentSide = isHeads ? 'heads' : 'tails';
+      const spawner = setInterval(() => {
+        if (!gameActive) { clearInterval(spawner); return; }
+        const d = document.createElement('div');
+        d.className = 'diamond';
+        d.textContent = '💎';
+        d.style.left = Math.random() * 88 + '%';
+        d.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
+        d.onclick = (e) => {
+          e.stopPropagation();
+          score++;
+          document.getElementById('score').textContent = `Diamonds: ${score}`;
+          d.style.transition = '0.4s';
+          d.style.transform = 'scale(2) rotate(360deg)';
+          d.style.opacity = '0';
+          setTimeout(() => d.remove(), 400);
+        };
+        document.getElementById('game-area').appendChild(d);
+      }, 380);
+    };
 
-        if (isHeads) {
-          coin.classList.add('coin-heads');
-          result.textContent = 'DIAMOND HANDS! 💎🚀';
-          streak++;
-        } else {
-          coin.classList.add('coin-tails');
-          result.textContent = 'PAPER HANDS 😭💸';
-          streak = 0;
-        }
-
-        streakEl.textContent = `Streak: ${streak} 🔥`;
-        result.classList.add('show');
-
-        setTimeout(() => {
-          result.classList.remove('show');
-        }, 3000);
-      }, 1500);
+    function endGame() {
+      const msg = document.getElementById('win-message');
+      if (score >= 50) msg.textContent = `GOD TIER\n${score} DIAMONDS\n0.5% AIRDROP INCOMING`;
+      else if (score >= 30) msg.textContent = `DIAMOND HANDS\n${score} = 0.1% AIRDROP`;
+      else if (score >= 15) msg.textContent = `SOLID\n${score} = small bag`;
+      else msg.textContent = `keep grinding anon\n${score} diamonds`;
+      msg.style.opacity = 1;
     }
   </script>
-
 </body>
 </html>
