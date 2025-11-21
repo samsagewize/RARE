@@ -1,225 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>$RARE Rain – Catch Diamonds, Win Tokens</title>
-  <meta name="description" content="$RARE Rain – Catch falling diamonds and win real $RARE airdrops!" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$RARE – HOLD THE DIAMOND</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap');
 
     body {
-      margin: 0;
-      height: 100vh;
-      background: radial-gradient(circle at center, #111 0%, #000 70%);
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow-x: hidden;
-      padding: 20px 0;
+      margin:0; height:100vh; background:#000; color:#fff;
+      font-family:'Inter',sans-serif; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; text-align:center;
+      overflow:hidden;
+      background: radial-gradient(circle at center, #111 0%, #000 100%);
     }
+    .logo { width:160px; height:160px; border-radius:50%; border:6px solid #ffd700;
+      box-shadow:0 0 100px #ffd700; animation:pulse 3s infinite; margin-bottom:20px; }
+    h1 { font-family:'Orbitron',sans-serif; font-size:4.5rem;
+      background:linear-gradient(90deg,#ffd700,#fff,#ffd700);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin:10px; }
+    .ca { padding:12px 30px; background:rgba(255,215,0,0.2); border:2px solid #ffd700;
+      border-radius:50px; font-family:'Orbitron'; font-size:1.2rem; letter-spacing:2px;
+      margin:20px; cursor:pointer; }
+    .ca:hover { box-shadow:0 0 40px #ffd700; }
 
-    .logo {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 6px solid #ffd700;
-      box-shadow: 0 0 100px rgba(255,215,0,0.8);
-      animation: pulse 4s infinite;
-      margin: 20px 0;
+    .game {
+      margin-top:40px; position:relative; width:380px; height:380px;
+      border:5px solid #ffd700; border-radius:50%; overflow:hidden;
+      background:radial-gradient(circle,#004e92,#000428);
+      box-shadow:0 0 120px rgba(255,215,0,0.7);
     }
-
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 4rem;
-      background: linear-gradient(90deg, #ffd700, #ffffff, #ffd700);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    #diamond {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      font-size:180px; cursor:grab; user-select:none;
+      text-shadow:0 0 40px #ffd700;
+      transition:all 0.05s;
     }
+    #diamond:active { transform:translate(-50%,-50%) scale(1.15); cursor:grabbing; }
+    #timer { font-family:'Orbitron'; font-size:4rem; margin:30px; color:#ffd700; }
+    #message { font-family:'Orbitron'; font-size:2.5rem; margin:20px;
+      background:linear-gradient(#ffd700,#fff); -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; height:80px; }
 
-    .ca {
-      margin: 20px 0;
-      padding: 12px 30px;
-      background: rgba(255,215,0,0.2);
-      border: 2px solid #ffd700;
-      border-radius: 50px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-    }
-
-    .ca:hover { box-shadow: 0 0 40px #ffd700; }
-
-    /* Rules box */
-    .rules {
-      max-width: 800px;
-      background: rgba(255,215,0,0.1);
-      border: 2px solid #ffd700;
-      border-radius: 20px;
-      padding: 20px;
-      margin: 20px auto;
-      text-align: left;
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
-
-    .rules h2 {
-      text-align: center;
-      font-family: 'Orbitron';
-beat      color: #ffd700;
-    }
-
-    /* Rain game */
-    .rain-container {
-      position: relative;
-      width: 420px;
-      height: 620px;
-      border: 6px solid #ffd700;
-      border-radius: 25px;
-      overflow: hidden;
-      background: linear-gradient(to bottom, #000428, #004e92);
-      box-shadow: 0 0 120px rgba(255,215,0,0.6);
-      margin: 30px 0;
-    }
-
-    #timer, #score {
-      position: absolute;
-      top: 15px;
-      font-family: 'Orbitron';
-      font-size: 2rem;
-      z-index: 10;
-      color: #ffd700;
-      text-shadow: 0 0 20px #000;
-    }
-    #timer { right: 20px; }
-    #score { left: 20px; }
-
-    #game-area { width: 100%; height: 100%; position: relative; cursor: crosshair; }
-    .diamond { position: absolute; font-size: 44px; pointer-events: none; animation: fall linear forwards; user-select: none; }
-    @keyframes fall { to { transform: translateY(700px) rotate(720deg); } }
-
-    #start-rain {
-      position: absolute;
-      bottom: -70px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 18px 50px;
-      background: linear-gradient(90deg, #ffd700, #ffed4a);
-      border: none;
-      border-radius: 50px;
-      color: #000;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 15px 40px rgba(255,215,0,0.6);
-    }
-
-    #win-message {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3.5rem;
-      text-align: center;
-      background: linear-gradient(#ffd700, #fff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0;
-      z-index: 20;
-      text-shadow: 0 0 30px #000;
-    }
-
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 0 100px rgba(255,215,0,0.8); }
-      50% { box-shadow: 0 0 160px rgba(255,215,0,1); }
-    }
-
-    footer { margin-top: 40px; opacity: 0.7; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 100px #ffd700;} 50%{box-shadow:0 0 180px #ffd700;} }
   </style>
 </head>
 <body>
 
-  <img src="rare.png" alt="$RARE Diamond" class="logo">
-  <h1>$RARE RAIN</h1>
+  <img src="Screenshot 2025-11-20 235126.png" class="logo" alt="$RARE">
+  <h1>$RARE</h1>
   <div class="ca" onclick="window.open('https://pump.fun/5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump')">
     CA: 5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump
   </div>
 
-  <!-- RULES -->
-  <div class="rules">
-    <h2>HOW TO WIN REAL $RARE</h2>
-    <p>1. Click <strong>START $RARE RAIN</strong><br>
-       2. You have 30 seconds<br>
-       3. Click as many falling 💎 as you can<br><br>
-       <strong>Rewards (paid weekly from the Prize Wallet):</strong><br>
-       • 50+ diamonds → <strong>0.5% of total supply</strong> airdropped<br>
-       • 30–49 diamonds → <strong>0.1% of supply</strong><br>
-       • 15–29 diamonds → <strong>0.02% of supply</strong><br>
-       • Top 3 scores every week get extra bonus<br><br>
-       Screenshot your score → post on Twitter/TG with #RARERain → we airdrop every Sunday</p>
+  <div style="max-width:700px; background:rgba(255,215,0,0.1); padding:20px; border-radius:20px; border:2px solid #ffd700; margin:20px;">
+    <b>HOW TO WIN $RARE (easiest game ever):</b><br>
+    Hold down your mouse (or finger) on the diamond as long as you can<br><br>
+    • 10 seconds → small airdrop<br>
+    • 30 seconds → medium bag<br>
+    • 60 seconds → 0.1–0.5% of supply (legend status)<br><br>
+    Screenshot your time → post with #RAREHold → get paid every day
   </div>
 
-  <!-- RARE RAIN GAME -->
-  <div class="rain-container">
-    <div id="timer">30</div>
-    <div id="score">Diamonds: 0</div>
-    <div id="game-area"></div>
-    <button id="start-rain">START $RARE RAIN</button>
-    <div id="win-message"></div>
+  <div class="game">
+    <div id="diamond" 
+         onmousedown="startHold(event)" ontouchstart="startHold(event)"
+         onmouseup="stopHold()" ontouchend="stopHold()"
+         onmouseleave="stopHold()">Diamond</div>
   </div>
 
-  <footer>© 2025 $RARE – The only coin that literally rains money</footer>
+  <div id="timer">0.0s</div>
+  <div id="message">Hold the diamond!</div>
 
   <script>
-    let score = 0, timeLeft = 0, gameActive = false;
+    let holdTime = 0;
+    let timerInterval = null;
+    const diamond = document.getElementById('diamond');
+    const timerEl = document.getElementById('timer');
+    const msgEl = document.getElementById('message');
 
-    document.getElementById('start-rain').onclick = () => {
-      if (gameActive) return;
-      score = 0; timeLeft = 30; gameActive = true;
-      document.getElementById('score').textContent = 'Diamonds: 0';
-      document.getElementById('timer').textContent = '30';
-      document.getElementById('win-message').style.opacity = 0;
-      document.getElementById('game-area').innerHTML = '';
+    function startHold(e) {
+      e.preventDefault();
+      if (timerInterval) clearInterval(timerInterval);
+      holdTime = 0;
+      timerEl.textContent = '0.0s';
+      msgEl.textContent = 'HOLDING... Diamond';
+      diamond.style.filter = 'brightness(1.5)';
 
-      const timer = setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer').textContent = timeLeft;
-        if (timeLeft <= 0) { clearInterval(timer); gameActive = false; endGame(); }
-      }, 1000);
+      timerInterval = setInterval(() => {
+        holdTime += 0.1;
+        timerEl.textContent = holdTime.toFixed(1) + 's';
 
-      const spawner = setInterval(() => {
-        if (!gameActive) { clearInterval(spawner); return; }
-        const d = document.createElement('div');
-        d.className = 'diamond';
-        d.textContent = '💎';
-        d.style.left = Math.random() * 88 + '%';
-        d.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
-        d.onclick = (e) => {
-          e.stopPropagation();
-          score++;
-          document.getElementById('score').textContent = `Diamonds: ${score}`;
-          d.style.transition = '0.4s';
-          d.style.transform = 'scale(2) rotate(360deg)';
-          d.style.opacity = '0';
-          setTimeout(() => d.remove(), 400);
-        };
-        document.getElementById('game-area').appendChild(d);
-      }, 380);
-    };
+        if (holdTime >= 60) msgEl.textContent = 'LEGEND! 0.5% INCOMING';
+        else if (holdTime >= 30) msgEl.textContent = 'DIAMOND HANDS! Medium bag';
+        else if (holdTime >= 10) msgEl.textContent = 'Keep going anon!';
+      }, 100);
+    }
 
-    function endGame() {
-      const msg = document.getElementById('win-message');
-      if (score >= 50) msg.textContent = `GOD TIER\n${score} DIAMONDS\n0.5% AIRDROP INCOMING`;
-      else if (score >= 30) msg.textContent = `DIAMOND HANDS\n${score} = 0.1% AIRDROP`;
-      else if (score >= 15) msg.textContent = `SOLID\n${score} = small bag`;
-      else msg.textContent = `keep grinding anon\n${score} diamonds`;
-      msg.style.opacity = 1;
+    function stopHold() {
+      if (timerInterval) clearInterval(timerInterval);
+      diamond.style.filter = '';
+      if (holdTime >= 10) {
+        msgEl.textContent = `Nice! ${holdTime.toFixed(1)}s → Screenshot & post #RAREHold`;
+      } else {
+        msgEl.textContent = 'Too early bro... try again';
+      }
     }
   </script>
+
 </body>
 </html>
