@@ -1,92 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>$RARE - Get Ready to Collect $RARE</title>
-    <meta name="description" content="$RARE - Truly scarce. Truly valuable." />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap");
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>$RARE - The Rarest Asset on Solana</title>
+  <meta name="description" content="$RARE - Truly scarce. Truly valuable." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap');
 
-      body {
-        margin: 0;
-        height: 100vh;
-        background: #000;
-        color: #fff;
-        font-family: "Inter", sans-serif;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        overflow: hidden;
-      }
-      .logo {
-        width: 220px;
-        height: 220px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 4px solid #ffd700;
-        box-shadow: 0 0 60px rgba(255, 215, 0, 0.6);
-        animation: pulse 4s infinite;
-      }
-      h1 {
-        font-family: "Orbitron", sans-serif;
-        font-size: 5rem;
-        margin: 2rem 0 0.5rem;
-        background: linear-gradient(90deg, #ffd700, #ffffff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      p {
-        font-size: 1.5rem;
-        max-width: 600px;
-        opacity: 0.9;
-        line-height: 1.6;
-      }
-      .ca {
-        margin-top: 3rem;
-        padding: 1rem 2rem;
-        background: rgba(255, 215, 0, 0.15);
-        border: 1px solid #ffd700;
-        border-radius: 50px;
-        font-family: "Orbitron", sans-serif;
-        font-size: 1.1rem;
-        letter-spacing: 1px;
-      }
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 60px rgba(255, 215, 0, 0.6);
-        }
-        50% {
-          box-shadow: 0 0 90px rgba(255, 215, 0, 0.9);
-        }
-        100% {
-          box-shadow: 0 0 60px rgba(255, 215, 0, 0.6);
-        }
-      }
-      footer {
-        position: absolute;
-        bottom: 20px;
-        font-size: 0.9rem;
-        opacity: 0.6;
-      }
-    </style>
-  </head>
-  <body>
-    <img src="Screenshot 2025-11-20 235126.png" alt="$RARE Diamond" class="logo" />
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
 
-    <h1>$RARE</h1>
-    <p>
-      The rarest value asset on Solana.<br />1 billion total supply • Fair
-      launch • Community owned 
-    </p>
+    /* Eye frame overlay */
+    .eye-frame {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1000;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.3) 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 0, 0.3) 1px, transparent 1px),
+        radial-gradient(circle at 50% 10%, rgba(0, 0, 255, 0.3) 1px, transparent 1px),
+        radial-gradient(circle at 10% 80%, rgba(255, 255, 0, 0.3) 1px, transparent 1px),
+        radial-gradient(circle at 90% 50%, rgba(255, 0, 255, 0.3) 1px, transparent 1px),
+        radial-gradient(circle at 30% 50%, rgba(0, 255, 255, 0.3) 1px, transparent 1px);
+      background-size: 100px 100px, 150px 150px, 200px 200px, 120px 120px, 180px 180px, 90px 90px;
+      animation: scan 3s linear infinite;
+      opacity: 0.7;
+    }
 
-    <div class="ca">CA: (5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump)</div>
+    @keyframes scan {
+      0% { transform: translateX(-100%) translateY(-100%); }
+      100% { transform: translateX(100%) translateY(100%); }
+    }
 
-    <footer>© 2025 $RARE –.</footer>
-  </body>
+    .logo {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ffd700;
+      box-shadow: 0 0 60px rgba(255, 215, 0, 0.6);
+      animation: pulse 4s infinite;
+      z-index: 1;
+    }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 5rem;
+      margin: 2rem 0 0.5rem;
+      background: linear-gradient(90deg, #ffd700, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      z-index: 1;
+    }
+    p {
+      font-size: 1.5rem;
+      max-width: 600px;
+      opacity: 0.9;
+      line-height: 1.6;
+      z-index: 1;
+    }
+    .ca {
+      margin-top: 3rem;
+      padding: 1rem 2rem;
+      background: rgba(255, 215, 0, 0.15);
+      border: 1px solid #ffd700;
+      border-radius: 50px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      z-index: 1;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.6); }
+      50% { box-shadow: 0 0 90px rgba(255, 215, 0, 0.9); }
+      100% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.6); }
+    }
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      z-index: 1;
+    }
+
+    /* Pump.fun coin page embed */
+    .pump-embed {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      height: 90%;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 0 100px rgba(255, 215, 0, 0.5);
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="eye-frame"></div>
+
+  <img src="Screenshot 2025-11-20 235126.png" alt="$RARE Diamond" class="logo">
+  
+  <h1>$RARE</h1>
+  <p>The rarest value asset on Solana.<br>1 billion total supply • Fair launch • Community owned</p>
+
+  <div class="ca">
+    CA: (5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump)
+  </div>
+
+  <footer>
+    © 2025 $RARE – Diamonds are forever.
+  </footer>
+
+  <!-- Embedded Pump.fun coin page -->
+  <iframe src="https://pump.fun/coin/5M6xFVaxwwKV8mDEXiLsUtyqyX1s44wLByiphEfkpump" class="pump-embed" title="Pump.fun $RARE Coin Page"></iframe>
+
+</body>
 </html>
-
-
-
