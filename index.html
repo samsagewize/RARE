@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>$RARE - The Rarest Asset on Solana</title>
+    <meta name="description" content="$RARE - Truly scarce. Truly valuable." />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap");
+
+      body {
+        margin: 0;
+        height: 100vh;
+        background: #000;
+        color: #fff;
+        font-family: "Inter", sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+      }
+      .logo {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #ffd700;
+        box-shadow: 0 0 60px rgba(255, 215, 0, 0.6);
+        animation: pulse 4s infinite;
+      }
+      h1 {
+        font-family: "Orbitron", sans-serif;
+        font-size: 5rem;
+        margin: 2rem 0 0.5rem;
+        background: linear-gradient(90deg, #ffd700, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      p {
+        font-size: 1.5rem;
+        max-width: 600px;
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+      .ca {
+        margin-top: 3rem;
+        padding: 1rem 2rem;
+        background: rgba(255, 215, 0, 0.15);
+        border: 1px solid #ffd700;
+        border-radius: 50px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 60px rgba(255, 215, 0, 0.6);
+        }
+        50% {
+          box-shadow: 0 0 90px rgba(255, 215, 0, 0.9);
+        }
+        100% {
+          box-shadow: 0 0 60px rgba(255, 215, 0, 0.6);
+        }
+      }
+      footer {
+        position: absolute;
+        bottom: 20px;
+        font-size: 0.9rem;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="rare.png" alt="$RARE Diamond" class="logo" />
+
+    <h1>$RARE</h1>
+    <p>
+      The rarest value asset on Solana.<br />1 billion total supply • Fair
+      launch • Community owned
+    </p>
+
+    <div class="ca">CA: (paste your contract address here after launch)</div>
+
+    <footer>© 2025 $RARE – Diamonds are forever.</footer>
+  </body>
+</html>
